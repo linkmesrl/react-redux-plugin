@@ -1,8 +1,8 @@
-# Ventura Next Poc
+# React redux plugin
 
 Un proof of concept di una struttura a plugin per una applicazione react
 
-## Contiene
+## What's inside
 
 - [x] [Webpack](https://webpack.github.io)
 - [x] [React](https://facebook.github.io/react/)
@@ -21,27 +21,28 @@ $ npm install
 $ npm start
 ```
 
-## Come funziona
+## How is it work
 
-Nel file package.json alcune dipendenze possono essere specificate anche dentro l'array *venturaPlugins*. Questo marca queste dipendenze come plugin compatibili con il sistema descritto in seguito, cio non toglie che questi plugin saranno gestibili come pacchetti npm indipendenti.
+Nel file package.json alcune dipendenze possono essere specificate anche dentro l'array *plugins*. Questo marca queste dipendenze come plugin compatibili con il sistema descritto in seguito, ciò non toglie che questi plugin saranno gestibili come pacchetti npm indipendenti.
+
 ```json
-"venturaPlugins": [
+"plugins": [
   "Settings",
   "Clients",
   "Maps"
 ],
 ```
-Attraverso webpack viene letto l'array dei plugin e messo in una costante *VENTURA_PLUGINS* che sarà disponibile nell'applicazione.
+Attraverso webpack viene letto l'array dei plugin e messo in una costante *EXTERNAL_PLUGINS* che sarà disponibile nell'applicazione.
 
 ```javascript
 new webpack.DefinePlugin({
-  VENTURA_PLUGINS: JSON.stringify(require("./package.json").venturaPlugins)
+  EXTERNAL_PLUGINS: JSON.stringify(require("./package.json").plugins)
 })
 ```
 
-*App*, che è il nostro componente connesso con lo stato di redux, legge la costante VENTURA_PLUGINS e richiede i plugin durante la fase di boot dell'applicazione
+*App*, che è il nostro componente connesso con lo stato di redux, legge la costante EXTERNAL_PLUGINS e richiede i plugin durante la fase di boot dell'applicazione
 ```javascript
-const plugins = VENTURA_PLUGINS.map(plugin => {
+const plugins = EXTERNAL_PLUGINS.map(plugin => {
   return require('components/' + plugin + '/index.js').default
 });
 ```
@@ -58,7 +59,7 @@ componente che viene visualizzato nella sezione principale.
 
 Ogni plugin caricato nella sidebar può essere associato una serie di componenti dipendenti, in questo caso cliccando su un elemento della sidebar viene caricato il componente selezionato in *MainSection*, nel nostro esempio viene caricato un h1 diverso.
 
-## Caricamento Lazy dei plugin
+## Plugin's Lazy Loading
 
 Utilizzando [**bundle-loader**](https://github.com/webpack/bundle-loader) di webpack è possibile ottenere il caricamento Lazy dei plugin che quindi, inizialmente non fanno parte del bundle ma vengono caricati dinamicamente in un secondo momento.
 
