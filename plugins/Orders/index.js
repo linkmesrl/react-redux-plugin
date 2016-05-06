@@ -6,7 +6,7 @@ import OrdersMain from './main'
 
 class Orders extends Component {
   renderPlugin = () => {
-    this.props.actions.showPlugin(<OrdersMain />);
+    this.props.actions.showPlugin(OrdersMain);
   };
   render() {
     return (

@@ -10,11 +10,7 @@ class MainSection extends Component {
     } = this.props;
     return (
       <div className={style.main}>
-        {
-          Object.keys(plugin).length > 0 && JSON.stringify(plugin) !== JSON.stringify({})
-            ?  plugin
-            : <h1>Dashboard</h1>
-        }
+        {plugin.component ?  <plugin.component /> : <h1>Dashboard</h1>}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import MapsMain from './main'
 
 class Maps extends Component {
   renderPlugin = () => {
-    this.props.actions.showPlugin(<MapsMain />);
+    this.props.actions.showPlugin(MapsMain);
   };
   render() {
     return (
