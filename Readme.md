@@ -1,4 +1,4 @@
-# React redux plugin
+# React redux plugin POC
 
 A proof of concept for a plugin structured React application
 
