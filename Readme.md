@@ -1,6 +1,6 @@
 # React redux plugin
 
-Un proof of concept di una struttura a plugin per una applicazione react
+A proof of concept for a plugin structured React application
 
 ## What's inside
 
@@ -23,7 +23,8 @@ $ npm start
 
 ## How is it work
 
-Nel file package.json alcune dipendenze possono essere specificate anche dentro l'array *plugins*. Questo marca queste dipendenze come plugin compatibili con il sistema descritto in seguito, ciò non toglie che questi plugin saranno gestibili come pacchetti npm indipendenti.
+In package.json you can declare some "plugin" dependecies in the plugins Array.
+They should be known plugins, compatible with the application but they can be installed from an external repository or npm registry.
 
 ```json
 "plugins": [
@@ -32,7 +33,7 @@ Nel file package.json alcune dipendenze possono essere specificate anche dentro 
   "Maps"
 ],
 ```
-Attraverso webpack viene letto l'array dei plugin e messo in una costante *EXTERNAL_PLUGINS* che sarà disponibile nell'applicazione.
+Webpack reads the array with plugins and set constant *EXTERNAL_PLUGINS* to make them available in the app flow.
 
 ```javascript
 new webpack.DefinePlugin({
@@ -40,28 +41,26 @@ new webpack.DefinePlugin({
 })
 ```
 
-*App*, che è il nostro componente connesso con lo stato di redux, legge la costante EXTERNAL_PLUGINS e richiede i plugin durante la fase di boot dell'applicazione
+*App* component dinamically requires plugins in the app's boot phase
 ```javascript
 const plugins = EXTERNAL_PLUGINS.map(plugin => {
   return require('components/' + plugin + '/index.js').default
 });
 ```
-Successivamente salva i nostri plugin nello stato di redux
+And saves them in the redux store via a custom action
 ```javascript
 actions.addPlugins(plugins);
 ```
-A questo punto, il nostro redux store è informato dei plugin che sono presenti.
 
-Per esempio, un plugin che voglia aggiungere una voce al menu dell'applicazione, può passare tramite props il componente che implementa questa voce di menu al componente builtin *SideBar*
+At this point we have plugins in the app state and we can pass them via props to child components, *SideBar* for example to build a dynamic menu.
 
-In questo POC i plugin sono fondamentalmente delle voci di menu a cui è associato un altro
-componente che viene visualizzato nella sezione principale.
+In this POC plugins are menu items with a onClick handler that show a component associated in the main section. Basically a simple different h1
 
-Ogni plugin caricato nella sidebar può essere associato una serie di componenti dipendenti, in questo caso cliccando su un elemento della sidebar viene caricato il componente selezionato in *MainSection*, nel nostro esempio viene caricato un h1 diverso.
+Every plugin can import their own children, the application shouldn't know every component loaded.
 
 ## Plugin's Lazy Loading
 
-Utilizzando [**bundle-loader**](https://github.com/webpack/bundle-loader) di webpack è possibile ottenere il caricamento Lazy dei plugin che quindi, inizialmente non fanno parte del bundle ma vengono caricati dinamicamente in un secondo momento.
+Using Webpack [**bundle-loader**](https://github.com/webpack/bundle-loader) is it possible to load plugins dynamically in a different bundle.
 
 ```javascript
 const plugin = 'Orders';
@@ -73,4 +72,4 @@ waitForChunk((file) => {
 });
 ```
 
-Schiacciando sul bottone Add Order in alto a destra del POC, viene caricato un nuovo bundle js che aggiunge una nuova voce di menu, Orders nel nostro caso, caricando anche il suo componente figlio.
+In our example you can click on the Add Order button to load a new bundle that import a new menu item with its child.
