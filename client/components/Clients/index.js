@@ -6,7 +6,7 @@ import ClientsMain from './main'
 
 class Clients extends Component {
   renderPlugin = () => {
-    this.props.actions.showPlugin(<ClientsMain />);
+    this.props.actions.showPlugin(ClientsMain);
   };
   render() {
     return (

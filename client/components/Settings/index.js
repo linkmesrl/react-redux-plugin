@@ -6,7 +6,7 @@ import SettingsMain from './main'
 class Settings extends Component {
   renderPlugin = () => {
     console.log(SettingsMain);
-    this.props.actions.showPlugin(<SettingsMain />);
+    this.props.actions.showPlugin(SettingsMain);
   };
   render() {
     return (
