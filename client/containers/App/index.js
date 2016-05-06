@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Header from 'components/Header'
 import MainSection from 'components/MainSection'
 import SideBar from 'components/SideBar'
-import * as TodoActions from 'actions/todos'
+import * as PluginActions from 'actions/plugins'
 import style from './style.css'
 
 class App extends Component {
@@ -58,7 +58,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(TodoActions, dispatch)
+    actions: bindActionCreators(PluginActions, dispatch)
   }
 }
 
