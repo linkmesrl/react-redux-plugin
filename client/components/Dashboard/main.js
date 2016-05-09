@@ -4,12 +4,28 @@ import style from './style.css'
 
 
 class DashboardMain extends Component {
-  
+  renderWidgets = () => {
+    const {
+      widgets
+    } = this.props;
+    console.log(widgets);
+    const widgetsComponents = widgets.map((Widget, i) => <Widget key={i} /> )
+    return (
+      <div>
+        {
+          widgetsComponents
+        }
+      </div>
+    );
+  };
   render() {
     return (
-      <h1>
-        Dashboard Main
-      </h1>
+      <div>
+        <h1>
+          Dashboard Main
+        </h1>
+        {this.renderWidgets()}
+      </div>
     );
   }
 }

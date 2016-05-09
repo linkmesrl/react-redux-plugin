@@ -6,11 +6,12 @@ import DashboardMain from 'components/Dashboard/main'
 class MainSection extends Component {
   render() {
     const {
-      plugin
+      plugin,
+      widgets
     } = this.props;
     return (
       <div className={style.main}>
-        {plugin.component ?  <plugin.component /> : <DashboardMain />}
+        {plugin.component ?  <plugin.component /> : <DashboardMain widgets={widgets} />}
       </div>
     );
   }

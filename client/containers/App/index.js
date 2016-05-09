@@ -13,12 +13,20 @@ class App extends Component {
     const { actions, children } = this.props
     // EXTERNAL_PLUGINS comes from webpack config
     const plugins = EXTERNAL_PLUGINS.map(plugin => {
-      const waitForChunk = require('bundle?lazy!components/' + plugin + '/index.js')
+      const waitForChunk = require('bundle?lazy!components/' + plugin + '/settings.js')
       waitForChunk((file) => {
-        const newPlugin = file.default
-        actions.addPlugins([newPlugin]);
+        const newPlugin = file.components
+
+        const sidebars = newPlugin.filter(el => el.path === 'menu');
+        actions.addPlugins(sidebars.map(el => el.component));
+
+        const dashboards = newPlugin.filter(el => el.path === 'dashboard');
+        actions.addWidgets(dashboards.map(el => el.component));
+
       });
     });
+    // const settings = require('components/Settings/settings.js');
+    // console.log('SETTINGS', settings);
   }
   addPluginRuntime = () => {
     const { actions, children } = this.props
@@ -32,7 +40,7 @@ class App extends Component {
 
   }
   render() {
-    const { plugin, plugins, actions, children } = this.props
+    const { plugin, plugins, actions, children, widgets } = this.props
     console.log(plugins);
     return (
       <div className={style.container}>
@@ -42,7 +50,7 @@ class App extends Component {
         <Header />
         <div className={style.mainContainer}>
           <SideBar plugins={plugins} actions={actions} />
-          <MainSection plugin={plugin} />
+          <MainSection plugin={plugin} widgets={widgets} />
         </div>
       </div>
     )
@@ -52,7 +60,8 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     plugins: state.plugins,
-    plugin: state.plugin
+    plugin: state.plugin,
+    widgets: state.widgets
   }
 }
 
