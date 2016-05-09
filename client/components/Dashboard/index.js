@@ -11,7 +11,7 @@ class Dashboard extends Component {
   render() {
     return (
       <li className={this.props.className} onClick={this.renderPlugin}>
-        Dashboard
+        Dashboard Main
       </li>
     );
   }
