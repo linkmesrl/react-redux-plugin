@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import style from './style.css'
-
+import DashboardMain from 'components/Dashboard/main'
 
 class MainSection extends Component {
   render() {
@@ -10,7 +10,7 @@ class MainSection extends Component {
     } = this.props;
     return (
       <div className={style.main}>
-        {plugin.component ?  <plugin.component /> : <h1>Dashboard</h1>}
+        {plugin.component ?  <plugin.component /> : <DashboardMain />}
       </div>
     );
   }

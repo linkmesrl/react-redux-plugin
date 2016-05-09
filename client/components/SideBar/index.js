@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import style from './style.css'
-import Settings from 'components/Settings'
+import Dashboard from 'components/Dashboard'
 
 class SideBar extends Component {
   renderPlugins = () => {
@@ -13,6 +13,7 @@ class SideBar extends Component {
     return (
       <div className={style.main}>
         <ul className={style.ul}>
+          <Dashboard className={style.li} actions={this.props.actions} />
           {this.renderPlugins()}
         </ul>
       </div>
