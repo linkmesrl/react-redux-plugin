@@ -1,6 +1,9 @@
 # React redux plugin POC
 
-A proof of concept for a plugin structured React application
+A proof of concept for a React application that demonstrates a simple plugin system that allows components to have a dynamic list of child components.
+
+A plugin is just a collection of components that implement a specific functionality.
+
 
 ## What's inside
 
@@ -21,18 +24,21 @@ $ npm install
 $ npm start
 ```
 
-## How is it work
+## How does it work
 
-In package.json you can declare some "plugin" dependecies in the plugins Array.
-They should be known plugins, compatible with the application but they can be installed from an external repository or npm registry.
+Plugin deps
 
-```json
+A plugin is installed as a generic npm package. However we still have to mark them as plugins in order for this to work.
+This is accomplished by listing them in a custom array inside the package.json file.
+
+
 "plugins": [
   "Settings",
   "Clients",
   "Maps"
 ],
 ```
+
 Webpack reads the array with plugins and set constant *EXTERNAL_PLUGINS* to make them available in the app flow.
 
 ```javascript
@@ -41,12 +47,15 @@ new webpack.DefinePlugin({
 })
 ```
 
-*App* component dinamically requires plugins in the app's boot phase
+### Plugin bootstrapping
+
+The *App* root component dynamically requires all defined plugins during the boot phase
 ```javascript
 const plugins = EXTERNAL_PLUGINS.map(plugin => {
   return require('components/' + plugin + '/index.js').default
 });
 ```
+
 And saves them in the redux store via a custom action
 ```javascript
 actions.addPlugins(plugins);
