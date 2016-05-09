@@ -11,7 +11,7 @@ class MainSection extends Component {
     } = this.props;
     return (
       <div className={style.main}>
-        {plugin.component ?  <plugin.component /> : <DashboardMain widgets={widgets} />}
+        {plugin.component ?  <plugin.component widgets={widgets} /> : <DashboardMain widgets={widgets} />}
       </div>
     );
   }

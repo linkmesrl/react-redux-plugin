@@ -20,9 +20,6 @@ class App extends Component {
         const sidebars = newPlugin.filter(el => el.path === 'menu');
         actions.addPlugins(sidebars.map(el => el.component));
 
-        const dashboards = newPlugin.filter(el => el.path === 'dashboard');
-        actions.addWidgets(dashboards.map(el => el.component));
-
       });
     });
     // const settings = require('components/Settings/settings.js');
