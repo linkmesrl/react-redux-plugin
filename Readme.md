@@ -31,7 +31,7 @@ Plugin deps
 A plugin is installed as a generic npm package. However we still have to mark them as plugins in order for this to work.
 This is accomplished by listing them in a custom array inside the package.json file.
 
-
+```javascript
 "plugins": [
   "Settings",
   "Clients",
@@ -52,7 +52,7 @@ new webpack.DefinePlugin({
 The *App* root component dynamically requires all defined plugins during the boot phase
 ```javascript
 const plugins = EXTERNAL_PLUGINS.map(plugin => {
-  return require('components/' + plugin + '/index.js').default
+  return require('PATH_TO_PLUGIN/' + plugin + '/settings.js')
 });
 ```
 
@@ -60,12 +60,33 @@ And saves them in the redux store via a custom action
 ```javascript
 actions.addPlugins(plugins);
 ```
+Every plugin it has a file `settings.js` where all dependencies are declared.
+For example Maps plugin it will be an array of object with component and path properties.
 
-At this point we have plugins in the app state and we can pass them via props to child components, *SideBar* for example to build a dynamic menu.
+```javascript
+import MapsDashboards from './dashboard'
+import MapsMain from './main'
+import MapsMenu from './index'
 
-In this POC plugins are menu items with a onClick handler that show a component associated in the main section. Basically a simple different h1
+export const components = [{
+  component: MapsDashboards,
+  path: 'dashboard',
+}, {
+  component: MapsMain,
+  path: 'main',
+}, {
+  component: MapsMenu,
+  path: 'menu',
+}];
+```
 
-Every plugin can import their own children, the application shouldn't know every component loaded.
+It will be the component itself to load plugins' components tagged for it.
+
+*SideBar* will load plugins tagged with 'menu' in path and it will create a dynamic menu.
+
+*Dashboard* is a plugin itself but it can load plugins' components tagged with 'dashboard' in path and generate a dynamic list of widgets.
+
+In this POC every plugins have a menu item with an `onClick` handler that show a component associated in the *MainSection*. They can have also a widget that it'll be loaded in *Dashboard*.
 
 ## Plugin's Lazy Loading
 
@@ -73,7 +94,7 @@ Using Webpack [**bundle-loader**](https://github.com/webpack/bundle-loader) is i
 
 ```javascript
 const plugin = 'Orders';
-const waitForChunk = require('bundle?lazy!./../../../plugins/Orders/index.js')
+const waitForChunk = require('bundle?lazy!PATH_TO_PLUGIN/Orders/index.js')
 
 waitForChunk((file) => {
   const newPlugin = file.default
@@ -81,4 +102,4 @@ waitForChunk((file) => {
 });
 ```
 
-In our example you can click on the Add Order button to load a new bundle that import a new menu item with its child.
+In this example you can click on the Add Order button to load a new bundle that import a new menu item with its child.
