@@ -7,9 +7,12 @@ class SettingsMain extends Component {
 
   render() {
     return (
-      <h1>
-        Settings
-      </h1>
+      <div>
+        <h1>
+          Settings
+        </h1>
+        <p>Settings has a menu item, and it doesn't have any widget</p>
+      </div>
     );
   }
 }

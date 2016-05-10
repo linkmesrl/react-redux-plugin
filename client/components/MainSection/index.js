@@ -3,20 +3,19 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as PluginActions from 'actions/plugins'
+import Main from './main'
 
 import style from './style.css'
-import DashboardMain from 'components/Dashboard/main'
 
 class MainSection extends Component {
   render() {
     const {
       plugin
     } = this.props;
-    console.log('PLUGIN', plugin);
     return (
       <div className={style.main}>
         {
-          plugin.component ? <plugin.component /> : <DashboardMain />
+          plugin.component ? <plugin.component /> : <Main />
         }
       </div>
     );

@@ -53,6 +53,7 @@ module.exports = {
   resolve: {
     modulesDirectories: [
       'client',
+      'plugins',
       'node_modules',
     ],
     extensions: ['', '.js', '.jsx']

@@ -43,6 +43,7 @@ class DashboardMain extends Component {
         <h1>
           Dashboard Main
         </h1>
+        <p>Dashboard is a plugin that has an entry point to accept widgets from different plugins</p>
         {this.renderWidgets()}
       </div>
     );

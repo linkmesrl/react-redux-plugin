@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import * as PluginActions from 'actions/plugins'
 
 import style from './style.css'
-import Dashboard from 'components/Dashboard'
+import MainMenu from '../MainSection/menu'
 
 class SideBar extends Component {
   componentDidMount() {
@@ -39,7 +39,7 @@ class SideBar extends Component {
     return (
       <div className={style.main}>
         <ul className={style.ul}>
-          <Dashboard className={style.li} actions={this.props.actions} />
+          <MainMenu className={style.li} actions={this.props.actions} />
           {this.renderPlugins()}
         </ul>
       </div>

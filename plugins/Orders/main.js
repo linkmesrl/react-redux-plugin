@@ -7,9 +7,12 @@ class OrdersMain extends Component {
 
   render() {
     return (
-      <h1>
-        Orders
-      </h1>
+      <div>
+        <h1>
+          Orders
+        </h1>
+        <p>Orders plugin is loaded only after a user click on the button, it will add a menu item and a dashboard widget</p>
+      </div>
     );
   }
 }
