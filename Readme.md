@@ -26,8 +26,6 @@ $ npm start
 
 ## How does it work
 
-Plugin deps
-
 A plugin is installed as a generic npm package. However we still have to mark them as plugins in order for this to work.
 This is accomplished by listing them in a custom array inside the package.json file.
 
@@ -93,12 +91,11 @@ In this POC every plugins have a menu item with an `onClick` handler that show a
 Using Webpack [**bundle-loader**](https://github.com/webpack/bundle-loader) is it possible to load plugins dynamically in a different bundle.
 
 ```javascript
-const plugin = 'Orders';
-const waitForChunk = require('bundle?lazy!PATH_TO_PLUGIN/Orders/index.js')
+const waitForChunk = require('bundle?lazy!PATH_TO_PLUGIN/Orders/settings.js')
 
 waitForChunk((file) => {
-  const newPlugin = file.default
-  actions.addPlugins([newPlugin]);
+  const newPlugin = file.components
+  actions.addPlugins(newPlugin);
 });
 ```
 
