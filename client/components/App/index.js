@@ -14,7 +14,7 @@ class App extends Component {
     // EXTERNAL_PLUGINS comes from webpack config
 
     const plugins = EXTERNAL_PLUGINS.map(plugin => {
-      const waitForChunk = require('bundle?lazy!components/' + plugin + '/settings.js')
+      const waitForChunk = require('bundle?lazy!./../../../plugins/' + plugin + '/settings.js')
       return new Promise((resolve, reject) => waitForChunk((file) => {
         resolve(file.components)
       }));
@@ -66,11 +66,11 @@ class App extends Component {
   addPluginRuntime = () => {
     const { actions, children } = this.props
     const plugin = 'Orders';
-    const waitForChunk = require('bundle?lazy!./../../../plugins/Orders/index.js')
+    const waitForChunk = require('bundle?lazy!./../../../plugins/Orders/settings.js')
 
     waitForChunk((file) => {
-      const newPlugin = file.default
-      actions.addPlugins([newPlugin]);
+      const newPlugin = file.components
+      actions.addPlugins(newPlugin);
     });
 
   }

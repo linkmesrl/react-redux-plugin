@@ -1,5 +1,4 @@
 
-import SettingsDashboards from './dashboard'
 import SettingsMain from './main'
 import SettingsMenu from './index'
 

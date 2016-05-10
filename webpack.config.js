@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: /client/,
+        include: /client|plugins/,
         loaders: [
           'style-loader',
           'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
@@ -37,7 +37,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /client/,
+        exclude: /client|plugins/,
         loader: 'style!css'
       },
       {

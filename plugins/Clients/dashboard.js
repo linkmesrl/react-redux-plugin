@@ -2,14 +2,12 @@
 import React, { Component } from 'react'
 import style from './style.css'
 
-
 class ClientsDashboard extends Component {
-
   render() {
     return (
-      <p>
+      <div className={style.box}>
         Clients
-      </p>
+      </div>
     );
   }
 }

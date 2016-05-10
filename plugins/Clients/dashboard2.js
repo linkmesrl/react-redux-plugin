@@ -7,9 +7,9 @@ class ClientsDashboard extends Component {
 
   render() {
     return (
-      <p>
+      <div className={style.box}>
         Clients 2
-      </p>
+      </div>
     );
   }
 }

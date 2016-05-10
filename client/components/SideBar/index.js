@@ -21,14 +21,12 @@ class SideBar extends Component {
   //   console.log('shouldComponentUpdate', this.props.plugins.files && nextProps.plugins.file.length !== this.props.plugins.file.length);
   //   return this.props.plugins.files && ;
   // }
-  // componentWillUpdate(nextProps) {
-  //   console.log('nextProps', nextProps.plugins);
-  //   if (nextProps.plugins.files.length > this.props.plugins.files.length) {
-  //     const newFiles = nextProps.plugins.files.filter(x => this.props.plugins.files.indexOf(x) === -1);
-  //     const sidebars = newFiles.filter(el => el.path === 'menu');
-  //     nextProps.actions.addComponentsToArea({ menu: sidebars.map(el => el.component) });
-  //   }
-  // }
+  componentWillUpdate(nextProps) {
+    if (nextProps.plugins.files.length > this.props.plugins.files.length) {
+      const sidebars = nextProps.plugins.files.filter(el => el.path === 'menu');
+      nextProps.actions.addComponentsToArea({ menu: sidebars.map(el => el.component) });
+    }
+  }
   renderPlugins = () => {
     console.log(this.props.plugins.menu);
     if (this.props.plugins.menu) {

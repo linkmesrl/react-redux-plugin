@@ -13,20 +13,24 @@ class DashboardMain extends Component {
       actions,
       plugins
     } = this.props;
-    console.log('DashboardMain componentDidMount', plugins.files);
-    const sidebars = plugins.files.filter(el => el.path === 'dashboard');
-    this.props.actions.addComponentsToArea({ dashboard: sidebars.map(el => el.component) });
+    const dashboardWidgets = plugins.files.filter(el => el.path === 'dashboard');
+    this.props.actions.addComponentsToArea({ dashboard: dashboardWidgets.map(el => el.component) });
   }
-
+  componentWillUpdate(nextProps) {
+    console.log('nextProps', nextProps.plugins);
+    if (nextProps.plugins.files.length > this.props.plugins.files.length) {
+      const dashboardWidgets = nextProps.plugins.files.filter(el => el.path === 'dashboard');
+      nextProps.actions.addComponentsToArea({ dashboard: dashboardWidgets.map(el => el.component) });
+    }
+  }
   renderWidgets = () => {
     const {
       plugins
     } = this.props;
     const widgets = plugins.dashboard || [];
-    console.log('WIDGETS', widgets);
     const widgetsComponents = widgets.map((Widget, i) => <Widget key={i} /> )
     return (
-      <div>
+      <div className={style.main}>
         {
           widgetsComponents
         }

@@ -7,9 +7,9 @@ class MapsDashboard extends Component {
 
   render() {
     return (
-      <p>
+      <div className={style.box}>
         Maps
-      </p>
+      </div>
     );
   }
 }
