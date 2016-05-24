@@ -1,4 +1,7 @@
 
+@value L: 0.5em 2em;
+@value S: 0.5em 1em;
+
 html,
 body {
   margin: 0;
@@ -48,9 +51,20 @@ input[type="checkbox"] {
   justify-content: center;
   min-height: 600px;
 }
-.button {
+
+.btn-base {
   position: absolute;
   right: 0;
-  padding: 0.5em 1em;
+  padding: S;
   background: gold;
+}
+
+.button {
+  composes: btn-base;
+}
+
+@media (min-width: 1024px) {
+  .btn-base {
+    padding: L;
+  }
 }
